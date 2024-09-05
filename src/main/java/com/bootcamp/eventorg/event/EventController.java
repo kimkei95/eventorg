@@ -62,6 +62,7 @@ Event findById(@PathVariable Integer id){
     void delete(@PathVariable Integer id){
         eventRepository.delete(id);
     }
+
     @GetMapping("/location")
     Optional<Event>findByLocation(@RequestParam String location){
         return eventRepository.findByLocation(location);
