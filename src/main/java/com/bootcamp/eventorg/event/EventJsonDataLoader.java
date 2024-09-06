@@ -13,10 +13,10 @@ import java.io.InputStream;
 @Component
 public class EventJsonDataLoader implements CommandLineRunner {
     private static final Logger log = LoggerFactory.getLogger(EventJsonDataLoader.class);
-    private final EventRepository eventRepository;
+    private final JdbcClientEventRepository eventRepository;
     private final ObjectMapper  objectMapper;
 
-    public EventJsonDataLoader(EventRepository eventRepository,ObjectMapper objectMapper){
+    public EventJsonDataLoader(JdbcClientEventRepository eventRepository, ObjectMapper objectMapper){
         this.eventRepository = eventRepository;
         this.objectMapper = objectMapper;
     }
