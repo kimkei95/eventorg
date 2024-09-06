@@ -63,63 +63,23 @@ public class EventRepository {
                 .update();
         Assert.state(updated ==1,"Failed to delete event"+id);
     }
-    public Optional<Event> findByLocation(String location){
+    public List<Event> findByLocation(String location){
         return jdbcClient.sql("select id,title,start_on,complete_on,participant,location" +
                 " from Event where location =:location")
                 .param("location",location)
                 .query(Event.class)
-                .optional();
+                .list();
+    }
+    public  void saveAll(List<Event>events){
+        events.forEach(this::create);
+    }
+
+    public int count() {
+        return jdbcClient.sql("select*from event")
+                .query()
+                .listOfRows()
+                .size();
     }
 }
-//     List<Event> events = new ArrayList<>();
-//     List<Event> findAll(){
-//         return events;
-//
-//     }
-////     Event findById(Integer id){
-////         return events.stream()
-////                 .filter(event -> event.getId().equals(id))
-////                 .findFirst().orElse(null);
-////     }
-//    // FIND BY ID
-//    Optional<Event>findById(Integer id){
-//         return events.stream().
-//                 filter(event -> Objects.equals(event.id(),id))
-//                 .findFirst();
-//    }
-//
-//    void create(Event event){
-//         events.add(event);
-//    }
-//    //update/modify data
-//    void update(Event event, Integer id){
-//         Optional<Event> existingEvent = findById(id);
-//         if (existingEvent.isPresent()){
-//             events.set(events.indexOf(existingEvent.get()),event);
-//         }
-//    }
-//
-//    //delete data
-//    void delete(Integer id){
-//         events.removeIf(event -> event.id().equals(id));
-//    }
-//     @PostConstruct
-//    private void init(){
-//         events.add(new Event(
-//                 1,
-//                 "Konser A",
-//                 LocalDateTime.now(),
-//                 LocalDateTime.now().plusHours(5),
-//                 10000,
-//                 Location.BEKASI
-//         ));
-//         events.add(new Event(
-//                 2,
-//                 "Konser B",
-//                 LocalDateTime.now(),
-//                 LocalDateTime.now().plusHours(7),
-//                 10000,
-//                 Location.JAKARTA
-//         ));
-//     }
+
 

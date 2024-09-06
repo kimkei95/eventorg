@@ -1,0 +1,20 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "title": "Konser C",
+      "startOn": "2024-09-05T11:34:10.980016",
+      "completeOn": "2024-09-05T18:34:10.980016",
+      "participant": 100000,
+      "location": "JAKARTA"
+    },
+    {
+      "id": 2,
+      "title": "The oral cigarettes",
+      "startOn": "2024-09-05T09:42:55.118762",
+      "completeOn": "2024-09-05T14:42:55.118762",
+      "participant": 100000,
+      "location": "JAKARTA"
+    }
+  ]
+}

@@ -11,10 +11,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("api/events")
 public class EventController {
-//    @GetMapping("/hello")
-//    String home(){
-//        return "hello guest";
-//    }
+
     private final EventRepository eventRepository;
 
     public EventController(EventRepository eventRepository) {
@@ -26,13 +23,6 @@ public class EventController {
         return eventRepository.findAll();
     }
 
-
-    //get by id
-
-//    @GetMapping("/api/events/{id}")
-//    public Event findById(@PathVariable Integer id){
-//        return  eventRepository.findById(id);
-//    }
 @GetMapping("/{id}")
 Event findById(@PathVariable Integer id){
     Optional<Event> event = eventRepository.findById(id);
@@ -63,7 +53,7 @@ Event findById(@PathVariable Integer id){
         eventRepository.delete(id);
     }
     @GetMapping("/location")
-    Optional<Event>findByLocation(@RequestParam String location){
+    List<Event>findByLocation(@RequestParam String location){
         return eventRepository.findByLocation(location);
     }
 }

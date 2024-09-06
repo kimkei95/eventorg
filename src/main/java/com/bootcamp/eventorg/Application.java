@@ -21,15 +21,7 @@ public class Application {
 		log.info("Application running ");
 
 	}
-//	@Bean
-//	CommandLineRunner runner(
-//	){
-//		return args->{
-//			Event event = new Event(1,"Konser A", LocalDateTime.now(),LocalDateTime.now().plusHours(5),
-//					10000, Location.JAKARTA);
-//			log.info("event: "+event);
-//		};
-	}
+}
 
 
 

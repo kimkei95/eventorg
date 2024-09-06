@@ -15,7 +15,7 @@ public record Event(
         Integer participant,
         Location location
 ) {
-        public  Event{
+        public Event{
                 if(!completeOn.isAfter(startOn)){
                         throw new IllegalArgumentException("Complete must be after start");
                 }
