@@ -1,24 +1,5 @@
 {
   "events": [
-
-      {
-        "id": 3,
-        "title": "super show",
-        "startOn": "2024-09-05T09:42:55.118762",
-        "completeOn": "2024-09-05T14:42:55.118762",
-        "participant": 10000,
-        "location": "JAKARTA",
-        "version": 1
-      },
-      {
-        "id": 4,
-        "title": "kim soo men",
-        "startOn": "2024-09-05T09:42:55.118762",
-        "completeOn": "2024-09-05T14:42:55.118762",
-        "participant": 100000,
-        "location": "JAKARTA",
-        "version": 0
-      },
       {
         "id": 1,
         "title": "day 6",

@@ -11,81 +11,50 @@ import java.util.Optional;
 @RequestMapping("api/events")
 public class EventController {
 
-    private final EventRepository eventRepository;
+    private final EventService eventService;
 
-    public EventController(EventRepository eventRepository) {
-        this.eventRepository = eventRepository;
+    public EventController(EventService eventService) {
+        this.eventService = eventService;
     }
-
-    // Get all data
     @GetMapping("")
-    List<Event> findAll() {
-        return eventRepository.findAll();
+    public List<Event> findAll(){
+        return eventService.findAll();
     }
-
     @GetMapping("/{id}")
-    Event findById(@PathVariable Integer id) {
-        Optional<Event> event = eventRepository.findById(id);
-        if (event.isEmpty()) {
-            throw new EventNotFoundException();
+        public Event findById(@PathVariable Integer id){
+            return eventService.findById(id);
         }
-        return event.get();
-    }
-
-    // Post data
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("")
-    void create(@Valid @RequestBody Event event) {
-        eventRepository.save(event);
-    }
-
-    // PUT
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+        @GetMapping("/location")
+        public List<Event> findByLocationAndParticipant(
+            @RequestParam(required = false) String location,
+            @RequestParam(required = false) Integer participant
+        ){
+        return eventService.findByLocationAndParticipant(location, participant);
+        }
+        @GetMapping("location/{}location")
+    public List<Event> findByLocation(@PathVariable String location){
+        return eventService.findByLocation(location);
+        }
+        @ResponseStatus(HttpStatus.CREATED)
+        @PostMapping("")
+        public Event create(@Valid @RequestBody Event event){
+        return eventService.create(event);
+        }
+        @ResponseStatus(HttpStatus.NO_CONTENT)
+        @DeleteMapping("/{id}")
+    public void delete (@PathVariable Integer id){
+        eventService.delete(id);
+        }
+      @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{id}")
-    void update(@Valid @RequestBody Event event, @PathVariable Integer id) {
-        if(!eventRepository.existsById(id)){
-            throw new EventNotFoundException();
-        }
-        Event existingEvent = eventRepository.findById(id).orElseThrow(EventNotFoundException::new);
-        Event updatedEvent = new Event(
-                id,
-                event.title(),
-                event.startOn(),
-                event.completeOn(),
-                event.participant(),
-                event.location(),
-                existingEvent.version()
-        );
-        eventRepository.save(event);
+    public void update(@Valid @RequestBody Event event,
+                       @PathVariable Integer id){
+        eventService.update(event,id);
+      }
     }
 
-     @ResponseStatus(HttpStatus.NO_CONTENT)
-     @DeleteMapping("/{id}")
-     void delete(@PathVariable Integer id) {
-         eventRepository.delete(eventRepository.findById(id).get());
-     }
 
 
-    @GetMapping("/location/{location}")
-    List<Event> findByLocation(@PathVariable String location){
-        return eventRepository.findAllByLocation(location);
-    }
-    @GetMapping("/title/{title}")
-    List<Event> findByTitle(@PathVariable String title){
-        return eventRepository.findByTitle(title);
-    }
-    @GetMapping("/location")
-    List<Event> findByLocationAndParticipant(@RequestParam String location,
-                                             @RequestParam(required = false) Integer participant){
-        if(location!= null && participant!=null){
-            return eventRepository.findAllByLocationAndParticipant(location,participant);
-        } else if (location!=null) {
-            return eventRepository.findAllByLocation(location);
-        } else if (participant!=null) {
-            return eventRepository.findAllByParticipant(participant);
-        }else{
-            return eventRepository.findAll();
-        }
 
-    }
-}
+
+
